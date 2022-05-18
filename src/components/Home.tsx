@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import bg_morning from "../assets/bg_morning.jpg";
+import phone_morning from "../assets/phone_morning.png";
 import Article from "./Article";
 import Watch from "./Watch";
 import Header from "./Header";
 import Footer from "./Footer";
 import Cloud from "./Cloud";
+import { useEffect, useState } from "react";
 const Main = styled.main<{
   bgImg: string;
 }>`
@@ -20,13 +22,24 @@ const Main = styled.main<{
 `;
 
 const Home = () => {
+  const [selected, setSelected] = useState("morning");
+  const [bgImg, setBgImg] = useState(bg_morning);
+  const [phoneImg, setPhoneImg] = useState(phone_morning);
+  useEffect(() => {
+    import(`../assets/bg_${selected}.jpg`).then((src) => {
+      setBgImg(src.default);
+    });
+    import(`../assets/phone_${selected}.png`).then((src) => {
+      setPhoneImg(src.default);
+    });
+  }, [selected]);
   return (
-    <Main bgImg={bg_morning}>
+    <Main bgImg={bgImg}>
       <Cloud />
       <Header />
       <Article />
-      <Watch />
-      <Footer />
+      <Watch phoneImg={phoneImg} />
+      <Footer selected={selected} setSelected={setSelected} />
     </Main>
   );
 };

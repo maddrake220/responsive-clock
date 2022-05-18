@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import phone from "../assets/phone_morning.png";
 import Cloud from "./Cloud";
 const WatchContainer = styled.figure<{
   bgImg: string;
@@ -48,7 +47,11 @@ const getCurrent = () => {
   };
 };
 
-const Watch = () => {
+type WatchProps = {
+  phoneImg: string;
+};
+
+const Watch = ({ phoneImg }: WatchProps) => {
   const [current, setCurrent] = useState<{
     hours: string | number;
     minutes: string | number;
@@ -63,7 +66,7 @@ const Watch = () => {
   }, []);
 
   return (
-    <WatchContainer bgImg={phone}>
+    <WatchContainer bgImg={phoneImg}>
       <div className="screen">
         <span>{current.hours}</span> : <span>{current.minutes}</span> :{" "}
         <span>{current.seconds}</span>

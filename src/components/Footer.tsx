@@ -1,4 +1,4 @@
-import React from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 
 const FooterContainer = styled.nav`
@@ -10,7 +10,7 @@ const FooterContainer = styled.nav`
   display: flex;
   justify-content: space-between;
 
-  a {
+  button {
     width: 23%;
     height: 100%;
     background: rgba(255, 255, 255, 0.3);
@@ -26,6 +26,7 @@ const FooterContainer = styled.nav`
     opacity: 0.7;
     transition: 0.5s;
 
+    cursor: pointer;
     &.on {
       background: rgba(255, 255, 255, 0.8);
       border: 1px solid #fff;
@@ -35,15 +36,45 @@ const FooterContainer = styled.nav`
   }
 `;
 
-const Footer = () => {
+type FooterProps = {
+  selected: string;
+  setSelected: Dispatch<SetStateAction<string>>;
+};
+
+const Footer = ({ selected, setSelected }: FooterProps) => {
+  const onClickSelect = (event: any) => {
+    setSelected(event.target.value);
+  };
   return (
     <FooterContainer>
-      <a href="#" className="on">
+      <button
+        onClick={onClickSelect}
+        className={selected === "morning" ? "on" : "off"}
+        value="morning"
+      >
         morning
-      </a>
-      <a href="#">afternoon</a>
-      <a href="#">evening</a>
-      <a href="#">night</a>
+      </button>
+      <button
+        onClick={onClickSelect}
+        className={selected === "afternoon" ? "on" : "off"}
+        value="afternoon"
+      >
+        afternoon
+      </button>
+      <button
+        onClick={onClickSelect}
+        className={selected === "evening" ? "on" : "off"}
+        value="evening"
+      >
+        evening
+      </button>
+      <button
+        onClick={onClickSelect}
+        className={selected === "night" ? "on" : "off"}
+        value="night"
+      >
+        night
+      </button>
     </FooterContainer>
   );
 };
