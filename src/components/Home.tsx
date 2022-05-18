@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import bgImg from "../assets/elgacia.jpg";
+import bg_morning from "../assets/bg_morning.jpg";
 import Article from "./Article";
 import Watch from "./Watch";
 import Header from "./Header";
+import Footer from "./Footer";
+import Cloud from "./Cloud";
 const Main = styled.main<{
   bgImg: string;
 }>`
@@ -19,10 +21,12 @@ const Main = styled.main<{
 
 const Home = () => {
   return (
-    <Main bgImg={bgImg}>
+    <Main bgImg={bg_morning}>
+      <Cloud />
       <Header />
       <Article />
       <Watch />
+      <Footer />
     </Main>
   );
 };

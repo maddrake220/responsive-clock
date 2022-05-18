@@ -3,8 +3,9 @@ import styled from "styled-components";
 const ArticleContainer = styled.article`
   width: 40vw;
   position: absolute;
-  top: 40vh;
+  top: 50%;
   left: 5vw;
+  transform: translateY(-50%);
 
   p {
     font: 4vw/1 "orbitron";
