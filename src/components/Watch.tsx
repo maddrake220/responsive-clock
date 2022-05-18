@@ -27,6 +27,11 @@ const WatchContainer = styled.figure<{
     color: #fff;
     text-align: center;
     overflow: hidden;
+
+    span {
+      display: inline-block;
+      width: 100px;
+    }
   }
 `;
 
@@ -47,27 +52,40 @@ const getCurrent = () => {
     seconds,
   };
 };
+type Tdata = {
+  condition: boolean;
+  name: TTime;
+};
 
 export const whatNow = (hours: number, time: TTime) => {
   let isChangeTime = false;
   let nowTime: TTime = "morning";
-  if (hours >= 0 && hours < 6 && time !== "night") {
-    isChangeTime = true;
-    nowTime = "night";
-  }
-  if (hours >= 6 && hours < 12 && time !== "morning") {
-    isChangeTime = true;
-    nowTime = "morning";
-  }
-  if (hours >= 12 && hours < 18 && time !== "afternoon") {
-    isChangeTime = true;
-    nowTime = "afternoon";
-  }
-  if (hours >= 18 && hours < 24 && time !== "evening") {
-    isChangeTime = true;
-    nowTime = "evening";
-  }
 
+  const data: Tdata[] = [
+    {
+      condition: hours >= 5 && hours < 11 && time !== "morning",
+      name: "morning",
+    },
+    {
+      condition: hours >= 11 && hours < 16 && time !== "afternoon",
+      name: "afternoon",
+    },
+    {
+      condition: hours >= 16 && hours < 19 && time !== "evening",
+      name: "evening",
+    },
+    {
+      condition: hours >= 19 || (hours < 5 && time !== "night"),
+      name: "night",
+    },
+  ];
+
+  data.forEach((item) => {
+    if (item.condition) {
+      isChangeTime = true;
+      nowTime = item.name;
+    }
+  });
   return {
     isChangeTime,
     nowTime,

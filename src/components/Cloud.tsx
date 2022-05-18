@@ -49,8 +49,8 @@ type CloudProps = {
 const Cloud = ({ watch = false }: CloudProps) => {
   return (
     <CloudContainer watch={watch}>
-      <img src={cloud1} alt="cloud1" className="sky_cloud1" />
-      <img src={cloud2} alt="cloud2" className="sky_cloud2" />
+      <img draggable={false} src={cloud1} alt="cloud1" className="sky_cloud1" />
+      <img draggable={false} src={cloud2} alt="cloud2" className="sky_cloud2" />
     </CloudContainer>
   );
 };
