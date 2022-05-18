@@ -2,7 +2,7 @@ import styled from "styled-components";
 import bg_morning from "../assets/bg_morning.jpg";
 import phone_morning from "../assets/phone_morning.png";
 import Article from "./Article";
-import Watch from "./Watch";
+import Watch, { whatNow } from "./Watch";
 import Header from "./Header";
 import Footer from "./Footer";
 import Cloud from "./Cloud";
@@ -21,7 +21,13 @@ const Main = styled.main<{
   background-image: url(${(props) => props.bgImg});
 `;
 
+export type TTime = "morning" | "afternoon" | "evening" | "night" | "";
+
 const Home = () => {
+  const now = new Date();
+  const hours = now.getHours();
+  const { nowTime } = whatNow(hours, "");
+  const [time, setTime] = useState<TTime>(nowTime);
   const [selected, setSelected] = useState("morning");
   const [bgImg, setBgImg] = useState(bg_morning);
   const [phoneImg, setPhoneImg] = useState(phone_morning);
@@ -33,12 +39,16 @@ const Home = () => {
       setPhoneImg(src.default);
     });
   }, [selected]);
+
+  useEffect(() => {
+    setSelected(time);
+  }, [time]);
   return (
     <Main bgImg={bgImg}>
       <Cloud />
       <Header />
       <Article />
-      <Watch phoneImg={phoneImg} />
+      <Watch phoneImg={phoneImg} time={time} setTime={setTime} />
       <Footer selected={selected} setSelected={setSelected} />
     </Main>
   );

@@ -2,10 +2,12 @@ import styled from "styled-components";
 import cloud1 from "../assets/cloud1.png";
 import cloud2 from "../assets/cloud2.png";
 
-const CloudContainer = styled.div`
+const CloudContainer = styled.div<{
+  watch: boolean;
+}>`
   .sky_cloud1 {
     position: absolute;
-    top: -100px;
+    top: ${({ watch }) => (watch ? "-170px" : "-100px")};
     left: -50%;
     opacity: 0;
     animation: cloud_animation 40s linear 20s infinite;
@@ -13,7 +15,7 @@ const CloudContainer = styled.div`
 
   .sky_cloud2 {
     position: absolute;
-    top: -50px;
+    top: ${({ watch }) => (watch ? "-120px" : "-50px")};
     left: -50%;
     opacity: 0;
     animation: cloud_animation 40s linear 0s infinite;
@@ -40,9 +42,13 @@ const CloudContainer = styled.div`
   }
 `;
 
-const Cloud = () => {
+type CloudProps = {
+  watch?: boolean;
+};
+
+const Cloud = ({ watch = false }: CloudProps) => {
   return (
-    <CloudContainer>
+    <CloudContainer watch={watch}>
       <img src={cloud1} alt="cloud1" className="sky_cloud1" />
       <img src={cloud2} alt="cloud2" className="sky_cloud2" />
     </CloudContainer>

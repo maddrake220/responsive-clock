@@ -19,7 +19,7 @@ const HeaderContainer = styled.header`
 const Header = () => {
   return (
     <HeaderContainer>
-      <h1>Lost Ark</h1>
+      <h1>MADDRAKE</h1>
       <Nav />
       <SNS />
     </HeaderContainer>
